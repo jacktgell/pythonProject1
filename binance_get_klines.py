@@ -7,19 +7,13 @@ def get_bitcoin_data():
     try:
         client = Client("api_key", "api_secret")
 
-        intervals = [Client.KLINE_INTERVAL_1MINUTE,
-                     Client.KLINE_INTERVAL_3MINUTE,
-                     Client.KLINE_INTERVAL_5MINUTE,
-                     Client.KLINE_INTERVAL_15MINUTE,
-                     Client.KLINE_INTERVAL_30MINUTE,
-                     Client.KLINE_INTERVAL_1HOUR,
-                     Client.KLINE_INTERVAL_2HOUR,
-                     Client.KLINE_INTERVAL_4HOUR,
+        intervals = [Client.KLINE_INTERVAL_4HOUR,
                      Client.KLINE_INTERVAL_6HOUR,
                      Client.KLINE_INTERVAL_8HOUR,
                      Client.KLINE_INTERVAL_12HOUR,
                      Client.KLINE_INTERVAL_1DAY]
         interval = intervals[random.randint(0, len(intervals)-1)]
+        print(f'intervals {interval}')
         # Retrieve the data
         klines = client.get_historical_klines("BTCUSDT", interval, "1 Jan, 2017")
 

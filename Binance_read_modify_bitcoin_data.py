@@ -83,7 +83,7 @@ def scale_data(df, x=0):
     # Replace the original data with the scaled data
     return scaled_df, target
 
-def generate_features():
+def generate_features(output):
     kline_interval = get_bitcoin_data()
     df = pd.read_csv('bitcoin_data.csv')
 
@@ -104,7 +104,10 @@ def generate_features():
     # Divide the shifted DataFrame by the original DataFrame
     df = df_shifted / df
 
-    label_df = df['close'].apply(set_label)
+    if output == 'softmax':
+        label_df = df['close'].apply(set_label)
+    else:
+        label_df = df['close']
 
     df['rsi'] = calculate_rsi(df['close'])
     df.drop(columns=['close'], inplace=True)

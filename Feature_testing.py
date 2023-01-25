@@ -1,10 +1,7 @@
-import math
-from random import random
 
-from normalise_date import *
 import numpy as np
 
-def shape_data(data, Y, rows_per_period = 20):
+def shape_data(data, Y, output, rows_per_period = 20):
     # Assume data is a 2D array of shape (timesteps, features)
     #data, Y = Normalise_data(feature)
 
@@ -35,25 +32,21 @@ def shape_data(data, Y, rows_per_period = 20):
     Y_converted = np.zeros((Y_periods_array.shape[0], 3))
 
     # Convert the Y values
-    for i in range(Y_periods_array.shape[0]):
-        if all(Y_periods_array[i] == [1, 0, 0]):
-            Y_converted[i, :] = [1, 0, 0]
-        elif all(Y_periods_array[i] == [0, 1, 0]):
-            Y_converted[i, :] = [0, 1, 0]
-        else:
-            Y_converted[i, :] = [0, 0, 1]
+    if output == 'softmax':
+        for i in range(Y_periods_array.shape[0]):
+            if all(Y_periods_array[i] == [1, 0, 0]):
+                Y_converted[i, :] = [1, 0, 0]
+            elif all(Y_periods_array[i] == [0, 1, 0]):
+                Y_converted[i, :] = [0, 1, 0]
+            else:
+                Y_converted[i, :] = [0, 0, 1]
+    else:
+        Y_converted = Y_periods_array
 
     # Replace Y_periods_array with the converted values
     Y_periods_array = Y_converted
 
     return periods_array, Y_periods_array
 
-def rand_el(my_list, lower=0):
-    return my_list[random.randint(lower, len(my_list)-1)]
-
-def rand_int(upper, lower, interval=1):
-    selection = random.randint(lower, upper)
-    selection = math.ceil(selection/interval)*interval
-    return selection
 
 
