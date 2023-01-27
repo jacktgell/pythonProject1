@@ -18,7 +18,7 @@ def get_bitcoin_data():
         klines = client.get_historical_klines("BTCUSDT", interval, "1 Jan, 2017")
 
         # Open a CSV file for writing
-        with open("bitcoin_data.csv", "w", newline="") as file:
+        with open("generated_data/bitcoin_data.csv", "w", newline="") as file:
             # Create a CSV writer
             writer = csv.writer(file)
 
